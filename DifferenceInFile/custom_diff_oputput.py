@@ -2,12 +2,6 @@ import argparse
 import re
 import os
 
-# ANSI escape codes for text color
-RED = "\033[91m"
-GREEN = "\033[92m"
-BLUE = "\033[94m"
-RESET = "\033[0m"
-
 def extract_and_group_lines(input_file, output_file, custom_prefixes):
     try:
         # Open the input file for reading
@@ -46,14 +40,10 @@ def extract_and_group_lines(input_file, output_file, custom_prefixes):
             for prefix, suffixes in prefix_suffix_mapping.items():
                 if len(suffixes) > 1:
                     # If there are multiple suffixes, print the prefix and all the suffixes
-                    output.write(
-                        f"{BLUE}{prefix}{RESET}: {', '.join([GREEN + s + RESET for s in suffixes])}\n"
-                    )
+                    output.write(f"{prefix}: {', '.join(suffixes)}\n")
                 else:
                     # If there is only one suffix, print the prefix and the single suffix
-                    output.write(
-                        f"{BLUE}{prefix}{RESET}: {GREEN + suffixes[0] + RESET}\n"
-                    )
+                    output.write(f"{prefix}: {suffixes[0]}\n")
 
         print(f"Extracted and grouped {len(prefix_suffix_mapping)} lines to {output_file}")
 
